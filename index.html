@@ -45,7 +45,7 @@
         }
 
         .header-content {
-            position: relative; /* Adicionado para prender o widget nas bordas deste container */
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -80,8 +80,8 @@
         /* Widget de Data e Hora posicionado na Borda Direita */
         .datetime-widget {
             position: absolute;
-            right: 20px; /* Colado na borda direita */
-            top: 30px; /* Centralizado verticalmente em relação ao cabeçalho */
+            right: 20px;
+            top: 30px;
             background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
@@ -229,11 +229,79 @@
         .impact-text { font-size: 1.05rem; color: #444; max-width: 800px; margin: 0 auto; }
         .impact-highlight { color: var(--secondary-color); font-weight: bold; font-size: 1.2rem; display: block; margin-bottom: 10px; }
 
-        .cert-gallery { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 15px; }
-        .cert-card { width: 200px; text-align: center; display: flex; flex-direction: column; align-items: center; }
-        .cert-thumb { width: 100%; height: 140px; object-fit: cover; object-position: top; border-radius: 8px; border: 2px solid #eef2f5; cursor: pointer; box-shadow: 0 4px 8px rgba(0,0,0,0.1); transition: transform 0.3s ease, border-color 0.3s ease; }
-        .cert-thumb:hover { transform: scale(1.05); border-color: var(--secondary-color); box-shadow: 0 6px 15px rgba(0,115,230,0.2); }
-        .cert-desc { margin-top: 10px; font-size: 0.9rem; color: #555; font-weight: 500; }
+        /* =========================================
+           GALERIA DE CERTIFICADOS
+           ========================================= */
+        .cert-gallery { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            gap: 30px; 
+            margin-top: 25px; 
+        }
+        .cert-row { 
+            display: flex; 
+            justify-content: center; 
+            gap: 40px;
+            flex-wrap: wrap; 
+            width: 100%; 
+        }
+        .cert-card { 
+            width: 220px; 
+            text-align: center; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            position: relative; 
+        }
+        .cert-thumb { 
+            width: 100%; 
+            height: 150px; 
+            object-fit: cover; 
+            object-position: top; 
+            border-radius: 8px; 
+            border: 2px solid #eef2f5; 
+            cursor: pointer; 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+            transition: transform 0.3s ease, border-color 0.3s ease; 
+        }
+        .cert-thumb:hover { 
+            transform: scale(1.05); 
+            border-color: var(--secondary-color); 
+            box-shadow: 0 6px 15px rgba(0,115,230,0.2); 
+        }
+        .cert-desc { 
+            margin-top: 10px; 
+            font-size: 0.9rem; 
+            color: #555; 
+            font-weight: 500; 
+        }
+
+        .cert-card.highlight .cert-thumb {
+            border: 3px solid #ffb300; 
+            box-shadow: 0 5px 15px rgba(255, 179, 0, 0.3);
+        }
+        .cert-card.highlight:hover .cert-thumb {
+            box-shadow: 0 8px 25px rgba(255, 179, 0, 0.6);
+            border-color: #ff9900;
+        }
+        .badge-destaque {
+            position: absolute;
+            top: -12px;
+            right: -10px;
+            background: linear-gradient(135deg, #ffb300, #ff8000);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            pointer-events: none;
+            letter-spacing: 0.5px;
+        }
 
         /* =========================================
            ESTILOS: MISSÃO, VISÃO E VALORES
@@ -323,7 +391,6 @@
         .modal-image-container { position: relative; max-width: 90%; max-height: 90vh; animation: modalFadeIn 0.3s ease-out; display: flex; justify-content: center; }
         .modal-image { width: 100%; height: auto; max-height: 90vh; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); display: block; }
         
-        /* Correção para evitar que o modal de vídeo quebre no mobile */
         #videoModal .modal-image-container { width: 100%; max-width: 800px; }
         .modal-video { width: 100%; height: auto; max-height: 85vh; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); outline: none; background: #000; }
 
@@ -358,7 +425,7 @@
             display: block;
             margin: 0 auto;
             cursor: pointer;
-            touch-action: none; /* Impede a tela de rolar ao tocar no jogo pelo mobile */
+            touch-action: none;
         }
         .game-instructions {
             font-size: 0.9rem;
@@ -389,13 +456,11 @@
            MEDIA QUERIES - RESPONSIVIDADE PARA TABLETS E CELULARES
            ========================================================== */
         @media (max-width: 768px) {
-            /* Cabeçalho */
             .header-content { flex-direction: column; gap: 10px; text-align: center; padding: 10px 15px; }
             .header-text { text-align: center; }
             header h1 { font-size: 1.4rem; }
             header p { font-size: 0.85rem; }
             
-            /* Ajuste do widget no mobile: desce para baixo do texto e centraliza */
             .datetime-widget { 
                 position: relative; 
                 right: auto; 
@@ -407,31 +472,20 @@
             }
             .datetime-widget .time { font-size: 1rem; }
             
-            /* CORREÇÃO DO ESPAÇO ABAIXO DO CABEÇALHO NO MOBILE */
-            .container { margin-top: 290px; padding: 0 15px; } /* <-- Valor alterado de 250px para 290px */
+            .container { margin-top: 290px; padding: 0 15px; } 
             
-            /* Seções mais compactas no mobile */
             section { padding: 20px 15px; margin-bottom: 20px; }
             h2 { font-size: 1.35rem; }
             
-            /* Formação Acadêmica - Empilhar para não quebrar */
             .formation-item { flex-direction: column; text-align: center; gap: 15px; }
-            
-            /* Galeria de Projetos em 1 coluna */
             .gallery { grid-template-columns: 1fr; gap: 20px; }
-            
-            /* Forçar a 3ª coluna a ocupar 100% de forma limpa */
             .project-card:nth-child(3) { grid-column: auto; width: 100%; }
-            
-            /* Ajuste na altura dos vídeos em telas muito pequenas */
             .project-card video, .project-card img, .double-video-container { height: 200px; }
-            
-            /* Reduzir o botão de contato e centralizar */
             .contact-links { flex-direction: column; align-items: center; }
             .contact-links a { width: 100%; max-width: 300px; text-align: center; }
-            
-            /* Canvas Jogo responsivo */
             #gameCanvas { width: 100%; max-width: 600px; height: auto; }
+
+            .cert-row { gap: 20px; }
         }
     </style>
 </head>
@@ -445,7 +499,7 @@
             
             <div class="header-text">
                 <h1>ANTÔNIO MARCOS SILVA MATOS</h1>
-                <p>Desenvolvedor Júnior | 28 anos | Salvador - BA</p>
+                <p>Analista de TI | 28 anos | Salvador - BA</p>
             </div>
 
             <div class="datetime-widget">
@@ -489,7 +543,7 @@
                 
                 <div class="formation-proof">
                     <div class="cert-card" style="width: 150px;">
-                        <img src="certificado.jpg" alt="" class="cert-thumb" style="height: 100px;">
+                        <img src="certificado.jpeg" alt="" class="cert-thumb" style="height: 100px;">
                         <p class="cert-desc" style="font-size: 0.8rem; margin-top: 5px;">Certificado de Conclusão</p>
                     </div>
                 </div>
@@ -516,26 +570,40 @@
             <p style="text-align: center; color: #666;">Clique nas miniaturas para visualizar o certificado em tela cheia.</p>
             
             <div class="cert-gallery">
-                <div class="cert-card">
-                    <img src="cert1.jpg" alt="Docker do Básico ao Avançado" class="cert-thumb">
-                    <p class="cert-desc">Docker do Básico ao Avançado - Udemy</p>
+                
+                <div class="cert-row">
+                    <div class="cert-card highlight">
+                        <div class="badge-destaque">⭐ Destaque</div>
+                        <img src="cert1.jpg" alt="Docker do Básico ao Avançado" class="cert-thumb">
+                        <p class="cert-desc">Docker do Básico ao Avançado - Udemy</p>
+                    </div>
+                    
+                    <div class="cert-card highlight">
+                        <div class="badge-destaque">⭐ Destaque</div>
+                        <img src="docker avancado.JPG" alt="Docker Avançado" class="cert-thumb">
+                        <p class="cert-desc">Docker Avançado</p>
+                    </div>
                 </div>
-                <div class="cert-card">
-                    <img src="cert2.png" alt="Conclusão Ensino Médio" class="cert-thumb">
-                    <p class="cert-desc">Manutenção em Micros</p>
+
+                <div class="cert-row">
+                    <div class="cert-card">
+                        <img src="cert2.png" alt="Manutenção em Micros" class="cert-thumb">
+                        <p class="cert-desc">Manutenção em Micros</p>
+                    </div>
+
+                    <div class="cert-card">
+                        <img src="cert5.jpeg" alt="CNH A e B" class="cert-thumb">
+                        <p class="cert-desc">CNH Categorias A e B</p>
+                    </div>
                 </div>
-                <div class="cert-card">
-                    <img src="cert3.jpg" alt="Certificado Militar" class="cert-thumb">
-                    <p class="cert-desc">Certificado de Reservista Militar</p>
+
+                <div class="cert-row">
+                    <div class="cert-card">
+                        <img src="cert4.jpg" alt="Educação Especializada AEE" class="cert-thumb">
+                        <p class="cert-desc">Educação Especializada (AEE)</p>
+                    </div>
                 </div>
-                <div class="cert-card">
-                    <img src="cert4.jpg" alt="Educação Especializada AEE" class="cert-thumb">
-                    <p class="cert-desc">Educação Especializada (AEE)</p>
-                </div>
-                <div class="cert-card">
-                    <img src="cert5.jpeg" alt="CNH A e B" class="cert-thumb">
-                    <p class="cert-desc">CNH Categorias A e B</p>
-                </div>
+
             </div>
         </section>
 
@@ -619,9 +687,20 @@
             
             <hr style="margin: 20px 0; border: 1px solid #eef2f5;">
 
-            <h3>Exército Brasileiro – 19º Batalhão de Caçadores</h3>
-            <span class="date-label">Soldado 1º Classe | 01/03/2018 a 28/02/2019</span>
-            <p>Formação militar com foco em disciplina, trabalho em equipe e resiliência.</p>
+            <div class="formation-item">
+                <div class="formation-text">
+                    <h3>Exército Brasileiro – 19º Batalhão de Caçadores</h3>
+                    <span class="date-label">Soldado 1º Classe | 01/03/2018 a 28/02/2019</span>
+                    <p>Formação militar com foco em disciplina, trabalho em equipe e resiliência.</p>
+                </div>
+                
+                <div class="formation-proof">
+                    <div class="cert-card" style="width: 150px;">
+                        <img src="cert3.jpeg" alt="Certificado Militar" class="cert-thumb" style="height: 100px;">
+                        <p class="cert-desc" style="font-size: 0.8rem; margin-top: 5px;">Certificado de Reservista Militar</p>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <section class="cascade">
@@ -710,23 +789,21 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // --- SCRIPT RELÓGIO E DATA (NOVO) ---
+            // --- SCRIPT RELÓGIO E DATA ---
             function updateClock() {
                 const now = new Date();
                 
-                // Formata hora
                 let h = String(now.getHours()).padStart(2, '0');
                 let m = String(now.getMinutes()).padStart(2, '0');
                 let s = String(now.getSeconds()).padStart(2, '0');
                 document.getElementById('clock').textContent = `${h}:${m}:${s}`;
                 
-                // Formata data
                 const options = { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' };
                 let dateStr = now.toLocaleDateString('pt-BR', options).replace('.', '');
                 document.getElementById('dateDisplay').textContent = dateStr;
             }
             setInterval(updateClock, 1000);
-            updateClock(); // Chamada inicial
+            updateClock();
 
             // --- EFEITO CASCATA ---
             const elements = document.querySelectorAll('.cascade');
@@ -762,13 +839,11 @@
                     });
                 });
 
-                // Fechar ao clicar fora
                 window.addEventListener('click', (e) => {
                     if (e.target === modal) modal.classList.remove('show');
                 });
             }
 
-            // Inicializando Modais de E-mail e Telefone
             setupModal('openEmailModal', 'emailModal', 'closeEmailModal', 'copyEmailBtn', 'emailText');
             setupModal('openPhoneModal', 'phoneModal', 'closePhoneModal', 'copyPhoneBtn', 'phoneText');
 
@@ -808,7 +883,6 @@
             }
             closeVideoModal.addEventListener('click', closeAndPauseVideo);
 
-            // Fechar modais de mídia ao clicar fora
             window.addEventListener('click', (e) => {
                 if (e.target === imageModal) imageModal.classList.remove('show');
                 if (e.target === videoModal) closeAndPauseVideo();
@@ -854,7 +928,6 @@
                 }
             }
 
-            // Controles
             window.addEventListener('keydown', (e) => {
                 if (e.code === 'Space') {
                     if (document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
@@ -869,7 +942,6 @@
             startBtn.addEventListener('click', initGame);
             restartBtn.addEventListener('click', initGame);
 
-            // Desenho inicial na tela parada
             ctx.fillStyle = "#f8f9fa";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.font = '30px Arial';
@@ -880,14 +952,12 @@
                 
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-                // Desenhar chão (linha)
                 ctx.beginPath();
                 ctx.moveTo(0, 130);
                 ctx.lineTo(canvas.width, 130);
                 ctx.strokeStyle = '#ccc';
                 ctx.stroke();
 
-                // Física do Desenvolvedor
                 dev.vy += dev.gravity;
                 dev.y += dev.vy;
                 if (dev.y >= 100) { 
@@ -895,16 +965,13 @@
                     dev.isJumping = false;
                 }
 
-                // Desenhar Desenvolvedor (Emoji)
                 ctx.font = '30px Arial';
                 ctx.fillText('👨‍💻', dev.x, dev.y + 25);
 
-                // Gerar Bugs
                 if (frames % 100 === 0) {
                     bugs.push({ x: canvas.width, y: 105, width: 25, height: 25 });
                 }
 
-                // Lógica dos Bugs
                 for (let i = 0; i < bugs.length; i++) {
                     let bug = bugs[i];
                     bug.x -= 5 + (score * 0.1); 
@@ -912,7 +979,6 @@
                     ctx.font = '25px Arial';
                     ctx.fillText('🐛', bug.x, bug.y + 20);
 
-                    // Colisão
                     if (dev.x < bug.x + bug.width - 5 &&
                         dev.x + dev.size > bug.x + 5 &&
                         dev.y < bug.y + bug.height - 5 &&
@@ -921,13 +987,11 @@
                     }
                 }
 
-                // Remover bugs que saíram da tela e somar pontos
                 if (bugs.length > 0 && bugs[0].x < -30) {
                     bugs.shift();
                     score += 10;
                 }
 
-                // Pontuação
                 ctx.fillStyle = '#333';
                 ctx.font = 'bold 16px Arial';
                 ctx.fillText('Score: ' + score, canvas.width - 90, 30);
